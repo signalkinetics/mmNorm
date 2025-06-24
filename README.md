@@ -2,6 +2,8 @@
 
 Created by: Laura Dodds, Tara Boroushaki, Kaichen Zhou, and Fadel Adib
 
+[[Paper](https://laura-dodds.github.io/papers/mmNorm.pdf)]
+
 https://github.com/user-attachments/assets/a7fdcd05-8660-4291-83be-f5629ae9cc83
 
 ## Requirements
