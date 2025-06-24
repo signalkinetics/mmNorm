@@ -1,85 +1,63 @@
-# MITO: Enabling Non-Line-of-Sight Perception using Millimeter-waves through Real-World Datasets and Simulation Tools
+# Non-Line-of-Sight 3D Object Reconstruction via mmWave Surface Normal Estimation
 
 Created by: Laura Dodds, Tara Boroushaki, Kaichen Zhou, and Fadel Adib
 
-[[Paper](http://arxiv.org/abs/2502.10259)] 
+## Requirements
 
-https://github.com/user-attachments/assets/b99041ab-b8b2-481a-a487-7e895c477a07
+This code relies on a GPU for computation. 
 
-
-## ??
-
-
-This repository and dataset are built on our prior work, MITO. Please refer to that work and original code repository for more information on the dataset structure, ..., and more.   
+This repository has been tested on Ubuntu 22.04 with Python 3.10.  
 
 ## Installation
-This repository is tested on Ubuntu 22.04 with Python 3.10. 
 
 1. Clone this reposity
 2. Run `python3 -m venv mmwave_venv` to create a new virtual environment
 3. Run `source mmwave_venv/bin/activate` to source the virtual environment
-4. Run `python3 setup.py --install` to run the install. Please note:
-    1. This installs numpy 1.24.3, which is required for PSBody. If you are not planning to run the simulation, you can use a different version of numpy by changing requirements.txt.
-    2. This setup will install requirements as needed, depending on the settings in param.json. It will only install GPU requirements if use_cuda is true, and it will only install simulation/segmentation requirements if use_simulation/use_segmentation are true. Please update params.json accordingly before running python3 setup.py
+4. Run `python3 setup.py --install` to run the install. 
+      - Note: You can run `python3 setup.py` to re-compile the C++/CUDA code without re-installing packages. 
 
 ## Accessing Data
-Our data is stored on a hugging face repository. To clone a copy of this repository, please follow these steps:
+You can access demo data here:
 
-1. Make sure you run the following commands from the outermost directory of this repo (i.e., within the MITO_Codebase folder)
-2. Run `huggingface-cli login`
-3. Follow the URL printed in the terminal to create a new hugging face token (or use an existing one)
-4. Enter your hugging face token. You can choose whether to save this token as a git credential.  
-5. Run `git clone https://huggingface.co/datasets/SignalKinetics/MITO_Dataset`
+To use this data, download the zip file and extract it in the main folder of the repo. There should be a `sample_data/` folder next to the `src/` folder. 
 
-You should now have a folder called `MITO_Dataset` which contains the processed files for all objects. If you would like access to the raw signal data, please email us.
+We are currently working on providing public access to our full dataset. If you would like access to the full dataset sooner, please email us. 
 
-## Visualizing Data
-Data can be visualized by running `cd src/utils && python3 visualization.py`. More details can be found in the documentation of that python file (or in the tutorial listed below).
+## Visualizing Reconstruction
+Data can be visualized by running `cd src/utils && python3 visualization.py`. The sample data provided above contains pre-processed data that can be visualized without any processing. More details can be found in the documentation of that python file.
 
-## Classifier
-The final classifier weights can be found in `src/classification/checkpoints`. Run `test_classifier.py` to see the result for the final weights on the test set. Run `train_classifier.py` to train the classifier. 
+## Processing data
+To process the sample data, run `cd src/data_processing && ./mmwave_reconstruction.sh`.
 
-### Pretrained Weights
-Pretrained weights are available [here](https://drive.google.com/file/d/1WzkjCBq-tK-8Il-dCjyOuNZ_oeNgd8AV/view?usp=sharing).
-This includes a zip file of trained weights for our full classifier and two microbenchmarks (for using only edge or only specular simulations). To test with pretrained weights, create a folder `src/classification/checkpoints` and extract the zip file within that folder beofre running `test_classifier.py`.  
+## Codebase Organization
+Our codebase is organized as follows:
 
-## Running the Simulation
-The simulation can be run with the `run_simulation.sh` file. See the file (or the tutorial listed below) for more details. 
+All the code to process the data is contained in `src/data_processing`. The `mmwave_reconstruction.sh` script is the main script to run the processing. It calls three different python files responsible for each of the three steps in mmNorm:
+1. `mmwave_normal_estimation.py` estimates surface normal vector fields from mmWave signals (Section 2 in the paper).
+2. `sdf.py` computes RSDF from the estimated normal vector fields (Section 3 in the paper).
+3. `isosurface_optimization.py` runs the isosurface optimization to select the final isosurface and construct the overall point cloud (Section 4 in the paper). 
 
-## Tutorials 
-We provide the following tutorials to introduce different features of this repository. All tutorials are in the `tutorials\` folder.
+## Codebase Acknowledgement
 
-### 1. Loading and Visualizing the Dataset
-This tutorial introduces the dataset (contents and structure) and shows how to download, access, and visualize the data. If your goal is to build new models using the previously processed images, this tutorial should be sufficient for your goals. The remainder of the tutorials show more advanced functionality (e.g., building models on this dataset or simulating/processing new images.)
-
-### 2. Simulating new mmWave Images
-This tutorial shows how to use our open-source simulation tool to produce synthetic images for any 3D mesh. This can be used to produce more synthetic data than we have released in our initial dataset release. 
-
-### 3. (COMING SOON) Segmenting mmWave Images
-This tutorial shows our approach for segmenting mmWave images using the SegmentAnything model (https://github.com/facebookresearch/segment-anything). This is a good example of using our data in downstream models.
-
-### 4. (COMING SOON) Classifying mmWave Images
-This tutorial shows our approach for classifying mmWave images, using a custom classification network. This is a good example of buidling custom models with our dataset. 
-
-### 5. (COMING SOON) Understanding mmWave Imaging
-This is an advanced tutorial explaining in-depth how mmWave imaging works. 
-
+This repository and dataset are built on our prior work, MITO. Please refer to that work and original code repository for more information on the dataset structure, SAR image processing, and more.   
 
 ## Citing mmNorm
 If you found mmNorm helpful for your research, please consider citing us with the following BibTeX entry:
 ```
-@misc{dodds2025mitoenablingnonlineofsightperception,  
-      title={MITO: Enabling Non-Line-of-Sight Perception using Millimeter-waves through Real-World Datasets and Simulation Tools},   
-      author={Laura Dodds and Tara Boroushaki and Fadel Adib},  
-      year={2025},  
-      eprint={2502.10259},  
-      archivePrefix={arXiv},  
-      primaryClass={cs.CV},  
-      url={https://arxiv.org/abs/2502.10259},   
+@inproceedings{dodds_mmnorm,
+author = {Dodds, Laura and Boroushaki, Tara and Zhou, Kaichen and Adib, Fadel},
+title = {Non-Line-of-Sight 3D Object Reconstruction via mmWave Surface Normal Estimation},
+year = {2025},
+doi = {10.1145/3711875.3729138},
+url = {https://doi.org/10.1145/3711875.3729138},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+booktitle = {Proceedings of the 23rd International Conference on Mobile Systems, Applications, and Services},
+series = {MobiSys '25}
 }
 ```
 
-If you found the mmWave dataset helpful for your research, please consider citing our prior work, MITO, with the following BibTeX entry: 
+If you found the mmWave dataset helpful for your research, please also consider citing our prior work, MITO, with the following BibTeX entry: 
 ```
 @misc{dodds2025mitoenablingnonlineofsightperception,  
       title={MITO: Enabling Non-Line-of-Sight Perception using Millimeter-waves through Real-World Datasets and Simulation Tools},   
