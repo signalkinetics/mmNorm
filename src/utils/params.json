@@ -1,0 +1,23 @@
+{
+    "processing": {
+        "use_cuda": true,
+        "use_interpolated_processing": true,
+        "path_to_data": "sample_data"
+    }, 
+    "robot_collected": {
+        "77_ghz": {
+            "almost-square": {
+                "min_f": 77.5001e9,
+                "max_f": 80.501e9,
+                "bandwidth": 3.0009e9 ,
+                "slope": 5861160,
+                "num_samples": 512,
+                "num_rx_antenna": 4,
+                "num_chirps": 1,
+                "periodicity": 0.003,
+                "num_frames": 4000,
+                "sweep_time": 0
+            }
+        }
+    }
+}
