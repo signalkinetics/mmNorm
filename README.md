@@ -21,7 +21,7 @@ This repository has been tested on Ubuntu 22.04 with Python 3.10.
       - Note: You can run `python3 setup.py` to re-compile the C++/CUDA code without re-installing packages. 
 
 ## Accessing Data
-You can access demo data here: https://www.dropbox.com/scl/fi/5w8imej5god8kmfq0oa1p/sample_data.zip?rlkey=8zzcxes862tpylze84zt3dl5v&st=p6z4cnrs&dl=0
+You can access demo data here: https://www.dropbox.com/scl/fi/keir3o11s9sux95bzwccu/sample_data.zip?rlkey=81siwq9m990h0id5esmmhe63h&st=c82an2s1&dl=0
 
 To use this data, download the zip file and extract it in the main folder of the repo. There should be a `sample_data/` folder next to the `src/` folder. 
 
