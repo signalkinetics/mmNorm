@@ -21,17 +21,19 @@ This repository has been tested on Ubuntu 22.04 with Python 3.10.
       - Note: You can run `python3 setup.py` to re-compile the C++/CUDA code without re-installing packages. 
 
 ## Accessing Data
-You can access demo data here: https://www.dropbox.com/scl/fi/keir3o11s9sux95bzwccu/sample_data.zip?rlkey=81siwq9m990h0id5esmmhe63h&st=c82an2s1&dl=0
-
+Example data from a single object can be accessed here: https://www.dropbox.com/scl/fi/keir3o11s9sux95bzwccu/sample_data.zip?rlkey=81siwq9m990h0id5esmmhe63h&st=c82an2s1&dl=0
 To use this data, download the zip file and extract it in the main folder of the repo. There should be a `sample_data/` folder next to the `src/` folder. 
 
-We are currently working on providing public access to our full dataset. If you would like access to the full dataset sooner, please email us. 
+The full dataset can be accessed here: https://www.dropbox.com/scl/fo/4el7e0upppmj1qf9uas6f/ALb5E0Cxntpiw75jRa-C_TY?rlkey=uoy01k88qo7ml9i3o4khfn4m1&e=1&st=3qccyuh6&dl=0
+To use this data, create a `sample_data/` folder in the main folder of the repo (next to the `src/` folder). Then, extract each zip within the `sample_data/` folder. 
 
 ## Visualizing Reconstruction
 Data can be visualized by running `cd src/utils && python3 visualization.py`. The sample data provided above contains pre-processed data that can be visualized without any processing. More details can be found in the documentation of that python file.
 
 ## Processing data
 To process the sample data, run `cd src/data_processing && ./mmwave_reconstruction.sh`.
+
+When using the full dataset, you can change which object(s) to process in `mmwave_reconstruction.sh`.
 
 ## Codebase Organization
 Our codebase is organized as follows:
